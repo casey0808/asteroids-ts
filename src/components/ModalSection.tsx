@@ -1,10 +1,10 @@
-import React, { createRef, useState } from 'react';
-import { Table, Modal, Form, Input, Button } from 'antd';
-import addIcon from '../assets/icons/add.svg';
-import { columns } from '../constants/const.js';
+import { createRef, useState } from 'react';
+import { Modal, Form, Input, Button, ConfigProvider } from 'antd';
 import closeIcon from '../assets/icons/close.svg';
 import { FormInstance } from 'antd/es/form/Form';
 import { IFormData } from '../constants/typing';
+import React from 'react';
+import '../styles/modal.scss'
 
 const ModalSection = ({
   onVisible,
@@ -12,8 +12,9 @@ const ModalSection = ({
   onCancel,
 }: {
   onVisible: boolean;
-  onSubmit: (values: IFormData) => void
-  onCancel: () => void;
+  onSubmit: (values: IFormData) => void;
+  // onCancel: () => void;
+  onCancel: () => any
 }) => {
   console.log('onvisible', onVisible);
 
@@ -26,15 +27,15 @@ const ModalSection = ({
     onSubmit(values);
   };
 
+  const handleCancel = (e: React.SyntheticEvent) => {
+    console.log('onCancel event', e);
+    e.stopPropagation()
+    onCancel();
+  }
+
   const customForm = () => {
     return (
-      <Form
-        name='basic'
-        // form={form}
-        ref={formRef}
-        autoComplete='off'
-      >
-        <img src={closeIcon} className='closeIcon' onClick={onCancel} />
+      <Form name='basic' ref={formRef} autoComplete='off' preserve={false}>
         <p className='ant-form-title'>Create a miner</p>
         <Form.Item
           label='Name'
@@ -105,10 +106,14 @@ const ModalSection = ({
       footer={false}
       closable={false}
       width={447}
-      maskStyle={{ backgroundColor: '#ff0000' }}
+      // centered
+      destroyOnClose={true}
+      className="modal"
+      // getContainer={() => document.querySelector('.main') as HTMLElement}
     >
+      <img src={closeIcon} className='closeIcon' onClick={handleCancel} />
       {customForm()}
     </Modal>
   );
 };
-export default ModalSection;
+export default React.memo(ModalSection);

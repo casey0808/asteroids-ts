@@ -1,6 +1,6 @@
 import '../styles/content.scss';
 // import { AndroidOutlined, AppleOutlined } from '@ant-design/icons';
-import { Tabs } from 'antd';
+import { Modal, Tabs } from 'antd';
 import React, { useCallback, useEffect, useState } from 'react';
 import RocketIcon from '../assets/icons/rocket.svg';
 import AsteroidIcon from '../assets/icons/asteroid.svg';
@@ -12,7 +12,7 @@ import { columns } from '../constants/const';
 import bg from '../assets/images/bg.png';
 import { Form, Input, Button } from 'antd';
 import closeIcon from '../assets/icons/close.svg';
-import ModalSection from './ModalSection'
+import ModalSection from './ModalSection';
 import { IFormData, IPlanetData } from '../constants/typing';
 
 const Content = () => {
@@ -49,9 +49,11 @@ const Content = () => {
   ];
 
   const [colKey, setColKey] = useState('planet');
-  const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState(true);
 
-  const data: IPlanetData[] = [{ name: 'P1', miners: 3, minerals: '300/1000', key: 1 }];
+  const data: IPlanetData[] = [
+    { name: 'P1', miners: 3, minerals: '300/1000', key: 1 },
+  ];
 
   const onTableClick = (record: any) => {
     console.log(record);
@@ -59,13 +61,15 @@ const Content = () => {
     setModal(true);
   };
 
-  const onSubmit = (values: IFormData ) => {
-    console.log('values:', values)
-  }
+  const handleSubmit = (values: IFormData) => {
+    console.log('values:', values);
+  };
 
-  const onCancel = () => {
-    setModal(false)
-  }
+  const handleCancel = () => {
+    console.log('close modal');
+    setModal(false);
+    Modal.destroyAll();
+  };
 
   return (
     <div className='content'>
@@ -87,16 +91,18 @@ const Content = () => {
         <Table
           data={data}
           colKey={colKey}
-          onClick={(record: IPlanetData) => onTableClick(record)}
+          handleClick={(record: IPlanetData) => {
+            onTableClick(record);
+          }}
         />
       </div>
       <div className='right'>
         <p>250 YEARS</p>
-        <img src={bg} className="img" />
+        <img src={bg} className='img' />
       </div>
-      <ModalSection onVisible={modal} onSubmit={onSubmit} onCancel={onCancel} />
+      <ModalSection onVisible={modal} onSubmit={handleSubmit} onCancel={handleCancel} />
     </div>
   );
 };
 
-export default Content;
+export default React.memo(Content);

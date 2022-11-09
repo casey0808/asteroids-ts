@@ -1,0 +1,126 @@
+$modal-bg-color: #1a1b2f;
+
+.modal .ant-modal-content {
+  font-family: 'Lato';
+  height: 427px;
+  width: 447px;
+  border-radius: 12px;
+  position: absolute;
+  background-color: #1a1b2f;
+  color: white;
+  text-align: left;
+  vertical-align: middle;
+  // padding-top: 24px;
+  // padding-left: 24px;
+  // padding-right: 24px;
+
+  .closeIcon {
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    top: 18px;
+    right: 18px;
+    border-radius: 50%;
+    float: right;
+    background: #31324b;
+  }
+
+  #basic {
+    color: white;
+    text-align: left;
+    padding: 0;
+
+    .ant-row {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+
+      .ant-input {
+        background: #242538;
+        width: 399px;
+        background: #242538;
+        border: 1px solid #1a1c31;
+        color: white;
+      }
+    }
+
+    .ant-form-item {
+      margin-bottom: 0;
+    }
+
+    .ant-form-title {
+      font-style: normal;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 100%;
+      text-align: center;
+      width: 399px;
+      padding-top: 16px;
+
+      &:nth-of-type(2) {
+        padding-top: 32px;
+        padding-bottom: 32px;
+      }
+    }
+
+    .ant-form-item-label > label {
+      color: white;
+      font-size: 11px;
+      padding-bottom: 4px;
+      height: 11px;
+    }
+    // #basic_name.ant-input,
+    // #basic_planet.ant-input {
+    //   height: 36px;
+    //   width: 425px;
+    //   left: 521px;
+    //   top: 378px;
+    //   border-radius: 4px;
+    //   padding-top: 4px;
+    //   background: #242538;
+    //   border: 1px solid #1a1c31;
+    //   color: white;
+    //   margin-bottom: 16px;
+    // }
+
+    .grid-row {
+      display: grid;
+      position: absolute;
+      grid-template-columns: repeat(3, 1fr);
+      height: 36px;
+      column-gap: 12px;
+      color: white;
+      width: 399px;
+
+      .ant-form-item .ant-input {
+        width: 125px;
+        height: 36px;
+        background: #242538;
+        border: 1px solid #1a1c31;
+        border-radius: 4px;
+        color: white;
+      }
+    }
+
+    .btn {
+      font-family: 'Lato';
+      position: absolute;
+      width: 91px;
+      height: 28px;
+      bottom: 32px;
+      left: 180px;
+      background: #e1e2ef;
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-style: normal;
+      font-weight: 900;
+      font-size: 12px;
+      line-height: 12px;
+
+      // text-align: center;
+    }
+  }
+}

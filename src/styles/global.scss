@@ -13,9 +13,14 @@
 
 @include font("Poppins", "../assets/fonts/poppins/poppins-v15-latin-regular");
 @include font("Lato", "../assets/fonts/lato/lato-v17-latin-regular");
+@import '~antd/dist/antd.css';
+@import './modal.scss';
+@import './content.scss';
+
+$bg-color: #191a29;
 
 .main {
-  background: #191a29;
+  background: $bg-color;
   position: absolute;
   width: 100%;
   height: 100vh;
@@ -36,12 +41,4 @@
     display: flex;
     justify-content: space-between;
   }
-
-  // .content {
-  //   display: grid;
-  //   padding: 80px 32px;
-  //   grid-template-columns: repeat(2, 1fr);
-  //   color: white;
-  //   grid-template-rows: 75vh;
-  // }
 }
