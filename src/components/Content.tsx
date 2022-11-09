@@ -49,7 +49,7 @@ const Content = () => {
   ];
 
   const [colKey, setColKey] = useState('planet');
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(false);
 
   const data: IPlanetData[] = [
     { name: 'P1', miners: 3, minerals: '300/1000', key: 1 },
