@@ -14,6 +14,7 @@ import { Form, Input, Button } from 'antd';
 import closeIcon from '../assets/icons/close.svg';
 import ModalSection from './ModalSection';
 import { IFormData, IPlanetData } from '../constants/typing';
+import { planetData } from '../apis/mockData';
 
 const Content = () => {
   const onTabChange = (key: string) => {
@@ -50,10 +51,7 @@ const Content = () => {
 
   const [colKey, setColKey] = useState('planet');
   const [modal, setModal] = useState(false);
-
-  const data: IPlanetData[] = [
-    { name: 'P1', miners: 3, minerals: '300/1000', key: 1 },
-  ];
+  const [data, setData] = useState(planetData);
 
   const onTableClick = (record: any) => {
     console.log(record);
@@ -100,7 +98,11 @@ const Content = () => {
         <p>250 YEARS</p>
         <img src={bg} className='img' />
       </div>
-      <ModalSection onVisible={modal} onSubmit={handleSubmit} onCancel={handleCancel} />
+      <ModalSection
+        onVisible={modal}
+        onSubmit={handleSubmit}
+        onCancel={handleCancel}
+      />
     </div>
   );
 };

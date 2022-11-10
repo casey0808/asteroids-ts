@@ -1,3 +1,7 @@
-// @import "~antd/dist/antd.css";
-
-
+#table {
+  .ant-table-cell-row-hover {
+    // background: rgba(25, 26, 41, 0.6);
+    color: var(--main-btn-color);
+    background: transparent;
+  }
+}

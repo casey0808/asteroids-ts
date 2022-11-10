@@ -1,12 +1,10 @@
-$modal-bg-color: #1a1b2f;
-
 .modal .ant-modal-content {
   font-family: 'Lato';
   height: 427px;
   width: 447px;
   border-radius: 12px;
   position: absolute;
-  background-color: #1a1b2f;
+  background-color: var(--main-modal-color);
   color: white;
   text-align: left;
   vertical-align: middle;
@@ -110,7 +108,7 @@ $modal-bg-color: #1a1b2f;
       height: 28px;
       bottom: 32px;
       left: 180px;
-      background: #e1e2ef;
+      background: var(--main-btn-color);
       border-radius: 8px;
       display: flex;
       justify-content: center;

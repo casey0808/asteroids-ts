@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Table, Modal, Form, Input, Button } from 'antd';
+import { Table} from 'antd';
 import addIcon from '../assets/icons/add.svg';
 import { columns } from '../constants/const';
-import closeIcon from '../assets/icons/close.svg';
+// import closeIcon from '../assets/icons/close.svg';
 import { IPlanetData } from '../constants/typing';
+import '../styles/table.scss';
 
 const TableSection = ({
   data,
@@ -54,6 +55,8 @@ const TableSection = ({
       className='table'
       pagination={{ hideOnSinglePage: true }}
       id="table"
+      bordered={false}
+      // loading
     />
   );
 };
