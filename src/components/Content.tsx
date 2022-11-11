@@ -14,34 +14,23 @@ import { Form, Input, Button } from 'antd';
 import closeIcon from '../assets/icons/close.svg';
 import ModalSection from './ModalSection';
 import { IFormData, IPlanetData } from '../constants/typing';
-import { planetData } from '../apis/mockData';
+import { getMiners, getPlanets } from '../apis';
+import { useRequest } from 'ahooks';
 
 const Content = () => {
   const onTabChange = (key: string) => {
     console.log('key:', key);
     setColKey(key);
   };
+
   // useEffect(() => {
-  //   let url = "ws://127.0.0.1:3001"; //服务端连接的url
+  //   let url = 'ws://asteroids.dev.mediasia.cn'; //服务端连接的url
   //   createWebSocket(url);
   //   //在组件卸载的时候，关闭连接
   //   return () => {
   //     closeWebSocket();
   //   };
   // });
-
-  const getMiners = async () => {
-    const url = `http://localhost:3001/miners`;
-    const res = await (
-      await fetch(url, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      })
-    ).json();
-    console.log('res', res);
-  };
-
-  // getMiners();
 
   const tabs = [
     { label: 'Miners', key: 'miners', src: RocketIcon },
@@ -51,7 +40,18 @@ const Content = () => {
 
   const [colKey, setColKey] = useState('planet');
   const [modal, setModal] = useState(false);
-  const [data, setData] = useState(planetData);
+  // const [data, setData] = useState(planetData);
+
+  // useEffect(() => {
+  //   const res = getPlanets();
+  //   console.log('get data', res);
+  // }, [colKey]);
+
+  const { data } = useRequest(async () => await getPlanets(), {
+    refreshDeps: [colKey],
+  });
+
+  console.log('data', data)
 
   const onTableClick = (record: any) => {
     console.log(record);

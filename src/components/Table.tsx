@@ -56,6 +56,7 @@ const TableSection = ({
       pagination={{ hideOnSinglePage: true }}
       id="table"
       bordered={false}
+      rowKey='_id'
       // loading
     />
   );

@@ -1,8 +1,8 @@
 export interface IPlanetData {
+    _id: number
     name: string
     miners: number
     minerals: string
-    key?: number
 }
 
 export interface IFormData {
