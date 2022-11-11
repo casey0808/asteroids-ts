@@ -1,10 +1,16 @@
+
+import { io } from 'socket.io-client';
+
 let websocket, lockReconnect = false;
+
 let createWebSocket = (url) => {
-    websocket = new WebSocket(url);
+
+    websocket = io(url);
     websocket.onopen = function () {
        heartCheck.reset().start();
     }
-    websocket.onerror = function () {
+    websocket.onerror = function (e) {
+        console.log("Websocket error", e);
         reconnect(url);
     };
     websocket.onclose = function (e) {
@@ -15,16 +21,18 @@ let createWebSocket = (url) => {
         //event 为服务端传输的消息，在这里可以处理
     }
 }
+
 let reconnect = (url) => {
     if (lockReconnect) return;
     //没连接上会一直重连，设置延迟避免请求过多
     setTimeout(function () {
         createWebSocket(url);
         lockReconnect = false;
-    }, 10000);
+    }, 100000);
 }
+
 let heartCheck = {
-    timeout: 60000, //60秒
+    timeout: 600000, //60秒
     timeoutObj: null,
     reset: function () {
         clearInterval(this.timeoutObj);
@@ -42,6 +50,7 @@ let heartCheck = {
 let closeWebSocket=()=> {
     websocket && websocket.close();
 }
+
 export {
     websocket,
     createWebSocket,

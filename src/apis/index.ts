@@ -1,4 +1,4 @@
-const baseUrl = 'https://asteroids.dev.mediasia.cn';
+export const baseUrl = 'https://asteroids.dev.mediasia.cn';
 
 export const getMiners = async () => {
   const res = await (

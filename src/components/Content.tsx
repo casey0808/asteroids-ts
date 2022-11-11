@@ -6,7 +6,7 @@ import RocketIcon from '../assets/icons/rocket.svg';
 import AsteroidIcon from '../assets/icons/asteroid.svg';
 import PlanetIcon from '../assets/icons/planet.svg';
 import Table from './Table';
-import { createWebSocket, closeWebSocket } from '../websocket.js';
+// import { createWebSocket, closeWebSocket } from '../websocket.js';
 // import fetch from "node-fetch";
 import { columns } from '../constants/const';
 import bg from '../assets/images/bg.png';
@@ -14,23 +14,44 @@ import { Form, Input, Button } from 'antd';
 import closeIcon from '../assets/icons/close.svg';
 import ModalSection from './ModalSection';
 import { IFormData, IPlanetData } from '../constants/typing';
-import { getMiners, getPlanets } from '../apis';
+import { baseUrl, getMiners, getPlanets } from '../apis';
 import { useRequest } from 'ahooks';
+import { socket } from '../socket';
 
 const Content = () => {
+  const [colKey, setColKey] = useState('planet');
+  const [modal, setModal] = useState(false);
+  const [data, setData] = useState({}) as any;
+
   const onTabChange = (key: string) => {
     console.log('key:', key);
     setColKey(key);
   };
 
   // useEffect(() => {
-  //   let url = 'ws://asteroids.dev.mediasia.cn'; //服务端连接的url
-  //   createWebSocket(url);
+  //   // let url = 'ws://localhost:3001'; //服务端连接的url
+  //   createWebSocket(baseUrl);
   //   //在组件卸载的时候，关闭连接
   //   return () => {
   //     closeWebSocket();
   //   };
   // });
+
+  // const data = socket.getData('miners');
+
+  // socket.connect()
+
+  useEffect(() => {
+    socket.on('tick', (res: any) => {
+      // data = res;
+      // console.log('tick====>', res);
+      if (res.currentTick % 100 === 0) {
+        setData(res);
+      }
+    });
+  }, []);
+
+  console.log('socket data: ', data?.miners);
 
   const tabs = [
     { label: 'Miners', key: 'miners', src: RocketIcon },
@@ -38,8 +59,6 @@ const Content = () => {
     { label: 'Planet', key: 'planet', src: PlanetIcon },
   ];
 
-  const [colKey, setColKey] = useState('planet');
-  const [modal, setModal] = useState(false);
   // const [data, setData] = useState(planetData);
 
   // useEffect(() => {
@@ -47,11 +66,11 @@ const Content = () => {
   //   console.log('get data', res);
   // }, [colKey]);
 
-  const { data } = useRequest(async () => await getPlanets(), {
-    refreshDeps: [colKey],
-  });
+  // const { data } = useRequest(async () => await getPlanets(), {
+  //   refreshDeps: [colKey],
+  // });
 
-  console.log('data', data)
+  // console.log('data', data)
 
   const onTableClick = (record: any) => {
     console.log(record);
@@ -87,7 +106,8 @@ const Content = () => {
           })}
         </div>
         <Table
-          data={data}
+          data={data?.[colKey] || []}
+          // data={[]}
           colKey={colKey}
           handleClick={(record: IPlanetData) => {
             onTableClick(record);
