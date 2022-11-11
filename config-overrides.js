@@ -1,4 +1,8 @@
-const { override, adjustStyleLoaders } = require('customize-cra');
+const {
+  override,
+  adjustStyleLoaders,
+  addWebpackResolve,
+} = require('customize-cra');
 
 module.exports = override(
   adjustStyleLoaders((rule) => {
@@ -13,5 +17,21 @@ module.exports = override(
         }
       );
     }
+  }),
+  addWebpackResolve({
+    alias: {
+      '@': path.resolve(__dirname, '../src'),
+    },
   })
 );
+// devServer(configFn) {
+//   return (proxy, allowedHost) => {
+//     const config = configFn(proxy, allowedHost);
+
+//     config.headers ={
+//       'Access-Control-Allow-Origin': '*',
+//     }
+//     return config;
+
+//   }
+// }
