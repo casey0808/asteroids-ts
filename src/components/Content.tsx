@@ -1,63 +1,73 @@
-import '../styles/content.scss';
+import "../styles/content.scss";
 // import { AndroidOutlined, AppleOutlined } from '@ant-design/icons';
-import { Modal, Tabs } from 'antd';
-import React, { useCallback, useEffect, useState } from 'react';
-import RocketIcon from '../assets/icons/rocket.svg';
-import AsteroidIcon from '../assets/icons/asteroid.svg';
-import PlanetIcon from '../assets/icons/planet.svg';
-import Table from './Table';
-// import { createWebSocket, closeWebSocket } from '../websocket.js';
-// import fetch from "node-fetch";
-import { columns } from '../constants/const';
-import bg from '../assets/images/bg.png';
-import { Form, Input, Button } from 'antd';
-import closeIcon from '../assets/icons/close.svg';
-import ModalSection from './ModalSection';
-import { IFormData, IPlanetData } from '../constants/typing';
-import { baseUrl, getMiners, getPlanets } from '../apis';
-import { useRequest } from 'ahooks';
-import { socket } from '../socket';
+import { message, Modal, Tabs } from "antd";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+
+import Table from "./Table";
+import { columns, customTabs } from "../constants/const";
+import bg from "../assets/images/bg.png";
+import { Form, Input, Button } from "antd";
+import closeIcon from "../assets/icons/close.svg";
+import ModalSection from "./ModalSection";
+import {
+  EMMinerStatus,
+  IColumnData,
+  IFormData,
+  IMinerData,
+  IPlanetData,
+} from "../constants/typing";
+import { addMiners, baseUrl, getPlanetList } from "../apis";
+import { useRequest } from "ahooks";
+// import { socket } from '../socket';
+import { io } from "socket.io-client";
+import { planetData } from "../apis/mockData";
+import ListModal from "./ListModal";
 
 const Content = () => {
-  const [colKey, setColKey] = useState('planet');
+  const [colKey, setColKey] = useState("planets");
   const [modal, setModal] = useState(false);
-  const [data, setData] = useState({}) as any;
+  const [listModal, setListModal] = useState(false);
+  // const [data, setData] = useState({}) as any;
+  const socket = useRef() as any;
+  const [curPlanet, setCurPlanet] = useState<IPlanetData>({} as IPlanetData)
 
   const onTabChange = (key: string) => {
-    console.log('key:', key);
+    console.log("key:", key);
     setColKey(key);
   };
 
   // useEffect(() => {
-  //   // let url = 'ws://localhost:3001'; //服务端连接的url
-  //   createWebSocket(baseUrl);
-  //   //在组件卸载的时候，关闭连接
-  //   return () => {
-  //     closeWebSocket();
-  //   };
-  // });
+  //   socket.current = io(baseUrl);
+  //   if (socket.current.connected) {
+  //     try {
+  //       socket.current.on("tick", (data: IColumnData) => {
+  //         const { miners, planets, asteroids } = data;
+  //         setData({
+  //           miners,
+  //           planets,
+  //           asteroids,
+  //         });
+  //       });
+  //     } catch (e) {
+  //       console.log("error", e);
+  //     }
 
-  // const data = socket.getData('miners');
+  //     setTimeout(() => {
+  //       socket.current.disconnect();
+  //     }, 10000);
+  //   }
+  // }, []);
 
-  // socket.connect()
-
-  useEffect(() => {
-    socket.on('tick', (res: any) => {
-      // data = res;
-      // console.log('tick====>', res);
-      if (res.currentTick % 100 === 0) {
-        setData(res);
-      }
-    });
-  }, []);
-
-  console.log('socket data: ', data?.miners);
-
-  const tabs = [
-    { label: 'Miners', key: 'miners', src: RocketIcon },
-    { label: 'Asteroids', key: 'asteroids', src: AsteroidIcon },
-    { label: 'Planet', key: 'planet', src: PlanetIcon },
-  ];
+  // useEffect(() => {
+  //   socket.on('tick', (res: any) => {
+  //     // data = res;
+  //     // console.log('tick====>', res);
+  //     if (res.currentTick % 100 === 0) {
+  //       setData(res);
+  //     }
+  //   });
+  // }, []);
+  // console.log("socket data: ", data);
 
   // const [data, setData] = useState(planetData);
 
@@ -66,62 +76,101 @@ const Content = () => {
   //   console.log('get data', res);
   // }, [colKey]);
 
-  // const { data } = useRequest(async () => await getPlanets(), {
-  //   refreshDeps: [colKey],
-  // });
+  const { data } = useRequest(async () => await getPlanetList(), {
+    refreshDeps: [colKey],
+  });
 
   // console.log('data', data)
-
-  const onTableClick = (record: any) => {
-    console.log(record);
-    console.log('table click');
-    setModal(true);
+  const onTableClick = (record: IPlanetData, id?: string) => {
+    console.log("record", record);
+    console.log("table click");
+    console.log('id', id)
+    if (!!id) {
+      setListModal(true);
+    } else {
+      setModal(true);
+    }
+    setCurPlanet(record);
   };
 
-  const handleSubmit = (values: IFormData) => {
-    console.log('values:', values);
+  const handleSubmit = async (values: IFormData) => {
+    console.log("values:", values);
+    const planet = planetData.find((planet) => planet._id === values.planet);
+    const res = await addMiners({
+      ...values,
+      x: planet?.position?.x,
+      y: planet?.position.y,
+      angle: 0,
+      status: EMMinerStatus.IDLE,
+      minerals: 1,
+    });
+    console.log("res", res);
+    if (!res.message) {
+      message.success("The miner was successfully created");
+      setModal(false);
+    } else {
+      message.error({
+        // content: res.message.split(".,").map((each: any, i: number) => <div key={i}>{each}</div>),
+        content: res._message,
+        // duration: 0,
+        style: {
+          width: "max-content",
+          margin: "100px auto",
+        },
+      });
+    }
   };
 
   const handleCancel = () => {
-    console.log('close modal');
+    console.log("close modal");
     setModal(false);
+    setListModal(false);
     Modal.destroyAll();
   };
 
   return (
-    <div className='content'>
-      <div className='left'>
-        <div className='tabPane'>
-          {tabs.map((tab) => {
+    <div className="content">
+      <div className="left">
+        <div className="tabPane">
+          {customTabs.map((tab) => {
             return (
               <div
                 key={tab.key}
                 onClick={() => onTabChange(tab.key)}
-                className='tab'
+                className="tab"
               >
-                <img src={tab.src} className='icon' />
+                <img src={tab.src} className="icon" />
                 <p>{tab.label}</p>
               </div>
             );
           })}
         </div>
         <Table
-          data={data?.[colKey] || []}
+          data={data || planetData}
           // data={[]}
           colKey={colKey}
-          handleClick={(record: IPlanetData) => {
-            onTableClick(record);
+          handleClick={(record: IPlanetData, id?: string) => {
+            onTableClick(record, id);
           }}
         />
       </div>
-      <div className='right'>
+      <div className="right">
         <p>250 YEARS</p>
-        <img src={bg} className='img' />
+        <img src={bg} className="img" />
       </div>
       <ModalSection
         onVisible={modal}
         onSubmit={handleSubmit}
         onCancel={handleCancel}
+        planetData={planetData}
+        curPlanet={curPlanet}
+        key="1"
+      />
+      <ListModal
+        onVisible={listModal}
+        onCancel={handleCancel}
+        curPlanet={curPlanet}
+        key="2"
       />
     </div>
   );

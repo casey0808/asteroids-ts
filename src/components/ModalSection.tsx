@@ -1,98 +1,124 @@
-import { createRef, useState } from 'react';
-import { Modal, Form, Input, Button, ConfigProvider } from 'antd';
-import closeIcon from '../assets/icons/close.svg';
-import { FormInstance } from 'antd/es/form/Form';
-import { IFormData } from '../constants/typing';
-import React from 'react';
-import '../styles/modal.scss'
+import { createRef, useState } from "react";
+import {
+  Modal,
+  Form,
+  Input,
+  Button,
+  ConfigProvider,
+  Select,
+  InputNumber,
+} from "antd";
+import closeIcon from "../assets/icons/close.svg";
+import { FormInstance } from "antd/es/form/Form";
+import { IFormData, IPlanetData } from "../constants/typing";
+import React from "react";
+import "../styles/modal.scss";
 
 const ModalSection = ({
   onVisible,
   onSubmit,
   onCancel,
+  planetData,
+  curPlanet,
 }: {
   onVisible: boolean;
   onSubmit: (values: IFormData) => void;
   // onCancel: () => void;
-  onCancel: () => any
+  onCancel: () => any;
+  planetData: IPlanetData[];
+  curPlanet: IPlanetData;
 }) => {
-  console.log('onvisible', onVisible);
+  console.log("onvisible", onVisible);
 
   const formRef = createRef<FormInstance>();
 
-  const handleSubmit = () => {
-    console.log('submit');
-    console.log('values: ', formRef.current?.getFieldsValue());
-    const values = formRef.current?.getFieldsValue();
-    onSubmit(values);
+  const handleSubmit = (e: { preventDefault: () => void }) => {
+    console.log("submit");
+    e.preventDefault();
+    // console.log("values: ", formRef.current?.getFieldsValue());
+    const validate = formRef.current?.validateFields();
+    if (validate) {
+      const values = formRef.current?.getFieldsValue();
+      onSubmit(values);
+    }
   };
 
   const handleCancel = (e: React.SyntheticEvent) => {
-    console.log('onCancel event', e);
-    e.stopPropagation()
+    console.log("onCancel event", e);
+    e.stopPropagation();
     onCancel();
-  }
+  };
 
   const customForm = () => {
     return (
-      <Form name='basic' ref={formRef} autoComplete='off' preserve={false}>
-        <p className='ant-form-title'>Create a miner</p>
+      <Form
+        name="basic"
+        ref={formRef}
+        autoComplete="off"
+        preserve={false}
+        initialValues={{ planet: curPlanet._id }}
+      >
+        <p className="ant-form-title">Create a miner</p>
         <Form.Item
-          label='Name'
-          name='name'
-          rules={[{ required: true, message: "Please input miner's name!" }]}
+          label="Name"
+          name="name"
+          rules={[{ required: true, message: "Name is required" }]}
         >
           <Input />
         </Form.Item>
 
         <Form.Item
-          label='Planet'
-          name='planet'
-          rules={[{ required: true, message: 'Please input planet' }]}
+          label="Planet"
+          name="planet"
+          rules={[{ required: true, message: "Planet is required" }]}
         >
-          <Input />
+          <Select
+            options={planetData}
+            fieldNames={{ label: "name", value: "_id" }}
+          />
         </Form.Item>
-        <p className='ant-form-title'>Assign points</p>
-        <div className='grid-row'>
+        <p className="ant-form-title">Assign points</p>
+        <div className="grid-row">
           <Form.Item
-            label='carryCapacity'
-            name='carryCapacity'
+            label="carryCapacity"
+            name="carryCapacity"
             rules={[
               {
                 required: true,
-                message: "Please input miner's carryCapacity!",
+                message: "carryCapacity is required",
               },
             ]}
           >
-            <Input />
+            <InputNumber min={1} max={200} />
           </Form.Item>
           <Form.Item
-            label='travelSpeed'
-            name='travelSpeed'
+            label="travelSpeed"
+            name="travelSpeed"
             rules={[
               {
                 required: true,
-                message: "Please input miner's travelSpeed!",
+                message: "travelSpeed is required",
               },
             ]}
           >
-            <Input />
+            <InputNumber min={1} max={200} />
           </Form.Item>
 
           <Form.Item
-            label='miningSpeed'
-            name='miningSpeed'
+            label="miningSpeed"
+            name="miningSpeed"
             rules={[
               {
                 required: true,
-                message: "Please input miner's miningSpeed!",
+                message: "miningSpeed is required",
               },
             ]}
           >
-            <Input />
+            <InputNumber min={1} max={200} />
           </Form.Item>
         </div>
-        <Button className='btn' onClick={handleSubmit}>
+        <div className="desc">{curPlanet?.minerals}</div>
+        <Button className="btn" onClick={handleSubmit}>
           Save
         </Button>
       </Form>
@@ -101,7 +127,7 @@ const ModalSection = ({
 
   return (
     <Modal
-      title=''
+      title=""
       open={onVisible}
       footer={false}
       closable={false}
@@ -111,7 +137,7 @@ const ModalSection = ({
       className="modal"
       // getContainer={() => document.querySelector('.main') as HTMLElement}
     >
-      <img src={closeIcon} className='closeIcon' onClick={handleCancel} />
+      <img src={closeIcon} className="closeIcon" onClick={handleCancel} />
       {customForm()}
     </Modal>
   );

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { Table} from 'antd';
-import addIcon from '../assets/icons/add.svg';
-import { columns } from '../constants/const';
+import React, { useState } from "react";
+import { Table } from "antd";
+import addIcon from "../assets/icons/add.svg";
+import { columns } from "../constants/const";
 // import closeIcon from '../assets/icons/close.svg';
-import { IPlanetData } from '../constants/typing';
-import '../styles/table.scss';
+import { IPlanetData } from "../constants/typing";
+import "../styles/table.scss";
 
 const TableSection = ({
   data,
@@ -13,22 +13,22 @@ const TableSection = ({
 }: {
   data: IPlanetData[];
   colKey: string;
-  handleClick: (record: IPlanetData) => void;
+  handleClick: (record: IPlanetData, id?: string) => void;
 }) => {
-  console.log('data:', data);
+  console.log("data:", data);
   console.log(colKey);
 
   const customColumns = columns[colKey].map((col: any, index: number) => {
-    if (col === 'Action') {
+    if (col === "Action") {
       return {
-        title: '',
-        key: 'action',
-        width: '10%',
+        title: "",
+        key: "action",
+        width: "10%",
         render: (_: any, record: IPlanetData) => (
           <span
-            className='action'
+            className="action"
             onClick={(e) => {
-              console.log('event', e);
+              console.log("event", e);
               handleClick(record);
               // e.stopPropagation()
             }}
@@ -38,12 +38,29 @@ const TableSection = ({
         ),
       };
     }
+    if (col === "Name" && colKey === "planets") {
+      return {
+        title: col,
+        dataIndex: col.toLowerCase(),
+        key: col,
+        width: "5%",
+        align: "left",
+        render: (_: any, record: IPlanetData) => (
+          <span
+            onClick={(e) => handleClick(record, record._id)}
+            className="planet"
+          >
+            {record?.name}
+          </span>
+        ),
+      };
+    }
     return {
       title: col,
       dataIndex: col.toLowerCase(),
       key: col,
-      width: '5%',
-      align: 'left',
+      width: "5%",
+      align: "left",
     };
   });
   console.log(customColumns);
@@ -52,11 +69,11 @@ const TableSection = ({
     <Table
       dataSource={data}
       columns={customColumns}
-      className='table'
+      className="table"
       pagination={{ hideOnSinglePage: true }}
       id="table"
       bordered={false}
-      rowKey='_id'
+      rowKey="_id"
       // loading
     />
   );

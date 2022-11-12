@@ -20,16 +20,16 @@ socket.on('connect', () => {
 });
 
 
-socket.on('tick', (res) => {
+// socket.on('tick', (res) => {
 
-  var result;
+//   var result;
 
-  // console.log('tick====>', res);
+//   // console.log('tick====>', res);
   
-  var getData = function (type) {
-    return res && res[type]
-  };
-})
+//   var getData = function (type) {
+//     return res && res[type]
+//   };
+// })
 
 
 
