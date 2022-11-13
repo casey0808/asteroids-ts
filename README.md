@@ -1,5 +1,5 @@
 # Asteroid Mining Simulation
-This is an asteroid mining simulation, using react and scss for the frontend, connecting to an express, node, websocket backend server (the backend server is provided by Slingshot at [asteroids-backend](https://git.mediasia-group.com/mediasia-interactive/asteroids-backend)).
+This is an asteroid mining simulation, using react, ts and scss for the frontend, connecting to an express, node, websocket backend server (the backend server is provided by Slingshot at [asteroids-backend](https://git.mediasia-group.com/mediasia-interactive/asteroids-backend)).
 
 ## Structure
 Main functional components are located in the `/components` folder, while scss code in `/styles` folder.
@@ -21,10 +21,18 @@ Will appear after clicking the data in `Miners` column with list of miners based
 
 ### Chart.tsx
 Display planets, asteroids and miners on the canvas based on their current positions.
+Built with `echarts-for-react`.
+
+### Libraries
+- [ahooks](https://ahooks.js.org/)
+- [antd](https://ant.design/)
+- [echarts-for-react](https://www.npmjs.com/package/echarts-for-react)
+- [socket.io](https://www.npmjs.com/package/socket.io)
+- [gh-pages](https://www.npmjs.com/package/gh-pages)
 
 ## Deliverables
 
-**Check it out [here](https://cancui.work/asteroids-ts/)**
+**Check it out [here](https://cancui.work/asteroids-ts/)** (host on github pages)
 
 - :white_check_mark: `Websocket`: 
 	- :white_check_mark: All planet, miners and asteroids status and information displayed on the frontend should be updated live via a websocket connection to the backend 
