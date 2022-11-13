@@ -8,6 +8,7 @@ import {
   IAsteroidData,
   IMinerData,
   IPlanetData,
+  MinerStatus,
 } from "../constants/typing";
 import "../styles/table.scss";
 import { getCurrentMiner, getPlanetName } from "../utils";
@@ -75,11 +76,12 @@ const TableSection = ({
 
   if (colKey === EMColKey.MINERS) {
     dataSource = dataSource?.map((each: IMinerData) => {
-      const { x, y } = each;
+      const { x, y, status } = each;
       return {
         ...each,
         planet: getPlanetName(each?.planet, allData?.planets),
         position: `(${x ? Math.floor(x) : x}, ${y ? Math.floor(y) : y})`,
+        status: MinerStatus.find((s) => s.value === status)?.name,
       };
     });
   }
@@ -87,11 +89,11 @@ const TableSection = ({
   if (colKey === EMColKey.ASTEROIDS) {
     dataSource = dataSource?.map((each: IAsteroidData) => {
       if (each?.currentMiner) {
-        const {x, y} = each.position;
+        const { x, y } = each.position;
         return {
           ...each,
           currentMiner: getCurrentMiner(each?.currentMiner, allData?.miners),
-          position: `(${x ? Math.floor(x) : x}, ${y ? Math.floor(y) : y})`
+          position: `(${x ? Math.floor(x) : x}, ${y ? Math.floor(y) : y})`,
         };
       }
       return each;
