@@ -108,7 +108,7 @@ const TableSection = ({
       id="table"
       bordered={false}
       rowKey="_id"
-      scroll={{ y: "72vh" }}
+      scroll={{ y: "66vh" }}
     />
   );
 };
