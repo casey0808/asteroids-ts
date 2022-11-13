@@ -50,43 +50,29 @@ const Content = () => {
 
   useEffect(() => {
     socket.current = io(baseUrl);
-    // if (socket.current.connected) {
-    // try {
-    //   socket.current.on("tick", (data: IColumnData) => {
-    //     const { miners, planets, asteroids } = data;
-    //     setData({
-    //       miners,
-    //       planets,
-    //       asteroids,
-    //     });
-    //   });
-    // } catch (e) {
-    //   console.log("error", e);
-    // }
-    // }
+    if (socket.current.connected) {
+      try {
+        socket.current.on("tick", (data: IColumnData) => {
+          console.log('socket data', data);
+          const { miners, planets, asteroids } = data;
+          setData({ ...data, miners, planets, asteroids });
+        });
+      } catch (e) {
+        console.log("error", e);
+      }
+    }
   }, []);
 
-  useMount(async () => {
-    const planetRes = await getPlanetList();
-    // const minerRes = await getMinerList();
-    // const asteroidsRes = await getAsteroidList();
-    setData({
-      [EMColKey.PLANETS]: planetRes,
-      // [EMColKey.MINERS]: minerRes,
-      // [EMColKey.ASTEROIDS]: asteroidsRes,
-    });
-  });
-
-  // useEffect(() => {
-  //   socket.on('tick', (res: any) => {
-  //     // data = res;
-  //     // console.log('tick====>', res);
-  //     if (res.currentTick % 100 === 0) {
-  //       setData(res);
-  //     }
+  // useMount(async () => {
+  //   const planetRes = await getPlanetList();
+  //   // const minerRes = await getMinerList();
+  //   // const asteroidsRes = await getAsteroidList();
+  //   setData({
+  //     [EMColKey.PLANETS]: planetRes,
+  //     // [EMColKey.MINERS]: minerRes,
+  //     // [EMColKey.ASTEROIDS]: asteroidsRes,
   //   });
-  // }, []);
-  // console.log("socket data: ", data);
+  // });
 
   const { loading } = useRequest(
     async () => {
@@ -109,10 +95,6 @@ const Content = () => {
       refreshDeps: [colKey, socket],
     }
   );
-
-  // setTimeout(() => {
-  //   run();
-  // }, 60000);
 
   const onTableClick = (record: IPlanetData, id?: string) => {
     console.log("record", record);
