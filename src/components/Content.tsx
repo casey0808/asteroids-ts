@@ -53,9 +53,14 @@ const Content = () => {
     if (socket.current.connected) {
       try {
         socket.current.on("tick", (data: IColumnData) => {
-          console.log('socket data', data);
-          const { miners, planets, asteroids } = data;
-          setData({ ...data, miners, planets, asteroids });
+          console.log("socket data", data);
+          const { miners, asteroids, planets } = data;
+          setData({
+            ...data,
+            [EMColKey.PLANETS]: planets,
+            [EMColKey.MINERS]: miners,
+            [EMColKey.ASTEROIDS]: asteroids,
+          });
         });
       } catch (e) {
         console.log("error", e);
@@ -63,16 +68,17 @@ const Content = () => {
     }
   }, []);
 
-  // useMount(async () => {
-  //   const planetRes = await getPlanetList();
-  //   // const minerRes = await getMinerList();
-  //   // const asteroidsRes = await getAsteroidList();
-  //   setData({
-  //     [EMColKey.PLANETS]: planetRes,
-  //     // [EMColKey.MINERS]: minerRes,
-  //     // [EMColKey.ASTEROIDS]: asteroidsRes,
-  //   });
-  // });
+  useMount(async () => {
+    const planetRes = await getPlanetList();
+    const minerRes = await getMinerList();
+    const asteroidsRes = await getAsteroidList();
+    setData({
+      ...data,
+      [EMColKey.PLANETS]: planetRes,
+      [EMColKey.MINERS]: minerRes,
+      [EMColKey.ASTEROIDS]: asteroidsRes,
+    });
+  });
 
   const { loading } = useRequest(
     async () => {
@@ -92,7 +98,7 @@ const Content = () => {
       }
     },
     {
-      refreshDeps: [colKey, socket],
+      refreshDeps: [colKey],
     }
   );
 
