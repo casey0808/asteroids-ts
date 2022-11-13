@@ -25,7 +25,7 @@ Will appear after clicking the data in `Miners` column with list of miners based
 Display planets, asteroids and miners on the canvas based on their current positions.
 
 ## Deliverables
-:white_check_mark: `Websocket`: 
+- :white_check_mark: `Websocket`: 
 	- :white_check_mark: All planet, miners and asteroids status and information displayed on the frontend should be updated live via a websocket connection to the backend 
     - :white_check_mark: Each time a miner, planet, asteroid is created or modified on the backend, it should be updated live on the frontend 
 - `REST API`:
