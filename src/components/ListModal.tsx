@@ -41,12 +41,7 @@ const ListModal = ({
     }
   );
 
-  console.log("data: ", data);
-
-  const formRef = createRef<FormInstance>();
-
   const handleCancel = (e: React.SyntheticEvent) => {
-    console.log("onCancel event", e);
     e.stopPropagation();
     onCancel();
   };
@@ -60,8 +55,6 @@ const ListModal = ({
         position: `(${x ? Math.floor(x) : ''}, ${y ? Math.floor(y) : ''})`,
       };
     });
-
-  console.log("data: ", modifiedData);
 
   const customColumns = columns.miners
     .filter((c: string) => c !== "Planet")

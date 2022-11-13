@@ -9,7 +9,6 @@ export const getMinerList = async () => {
       headers: { "Content-Type": "application/json" },
     })
   ).json();
-  console.log("res", res);
   return res;
 };
 
@@ -20,7 +19,6 @@ export const getPlanetList = async () => {
       headers: { "Content-Type": "application/json" },
     })
   ).json();
-  console.log("res", res);
   return res;
 };
 
@@ -31,7 +29,6 @@ export const getAsteroidList = async () => {
       headers: { "Content-Type": "application/json" },
     })
   ).json();
-  console.log("res", res);
   return res;
 };
 
@@ -44,7 +41,6 @@ export const addMiners = async (params: IMinerData) => {
         body: JSON.stringify({ ...params }),
       })
     ).json();
-    console.log("res", res);
     return res
   } catch (e) {
     console.log(e)
@@ -58,6 +54,5 @@ export const getMinerByPlanet = async (id: string) => {
       headers: { "Content-Type": "application/json" },
     })
   ).json();
-  console.log("res", res);
   return res;
 };

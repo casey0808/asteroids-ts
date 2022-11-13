@@ -103,9 +103,6 @@ const Content = () => {
   );
 
   const onTableClick = (record: IPlanetData, id?: string) => {
-    console.log("record", record);
-    console.log("table click");
-    console.log("id", id);
     if (!!id) {
       setListModal(true);
     } else {
@@ -115,7 +112,6 @@ const Content = () => {
   };
 
   const handleSubmit = async (values: IFormData) => {
-    console.log("values:", values);
     const planet = planetData.find((planet) => planet._id === values.planet);
     const res = await addMiners({
       ...values,
@@ -125,7 +121,6 @@ const Content = () => {
       status: EMMinerStatus.IDLE,
       minerals: 1,
     });
-    console.log("res", res);
     if (!res.message) {
       message.success("The miner was successfully created");
       setModal(false);

@@ -7,7 +7,6 @@ import minerIcon from "../assets/images/rocket.svg";
 import asteroidIcon from "../assets/images/asteroids.svg";
 
 const Chart = ({ data }: { data: any }) => {
-  console.log(data);
   const planet = data?.planets?.map((each: IPlanetData) => [
     each.position.x,
     each.position.y,
@@ -64,7 +63,7 @@ const Chart = ({ data }: { data: any }) => {
     ],
   };
 
-  if (!planet && !miner) {
+  if (!planet && !miner && !asteroid) {
     return <></>;
   }
 

@@ -35,7 +35,6 @@ const ModalSection = ({
   const handleSubmit = (e: { preventDefault: () => void }) => {
     console.log("submit");
     e.preventDefault();
-    // console.log("values: ", formRef.current?.getFieldsValue());
     const validate = formRef.current?.validateFields();
     if (validate) {
       const values = formRef.current?.getFieldsValue();
@@ -44,7 +43,6 @@ const ModalSection = ({
   };
 
   const handleCancel = (e: React.SyntheticEvent) => {
-    console.log("onCancel event", e);
     e.stopPropagation();
     onCancel();
   };

@@ -38,7 +38,6 @@ const TableSection = ({
           <span
             className="action"
             onClick={(e) => {
-              console.log("event", e);
               handleClick(record);
               // e.stopPropagation()
             }}
@@ -73,7 +72,6 @@ const TableSection = ({
       align: "left",
     };
   });
-  console.log(customColumns);
 
   if (colKey === EMColKey.MINERS) {
     dataSource = dataSource?.map((each: IMinerData) => {
