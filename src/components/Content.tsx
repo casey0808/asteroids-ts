@@ -6,6 +6,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import Table from "./Table";
 import { columns, customTabs } from "../constants/const";
 import bg from "../assets/images/bg.png";
+import gridBg from "../assets/images/gridBg.svg";
 import { Form, Input, Button } from "antd";
 import closeIcon from "../assets/icons/close.svg";
 import ModalSection from "./ModalSection";
@@ -30,6 +31,9 @@ import { useMount, useRequest } from "ahooks";
 import { io } from "socket.io-client";
 import { planetData } from "../apis/mockData";
 import ListModal from "./ListModal";
+import Chart from "./Chart";
+import loaderIcon from "../assets/icons/loader.svg";
+import { getCustomTabs } from "../utils";
 
 const Content = () => {
   const [colKey, setColKey] = useState("planets");
@@ -39,14 +43,10 @@ const Content = () => {
   const socket = useRef() as any;
   const [curPlanet, setCurPlanet] = useState<IPlanetData>({} as IPlanetData);
 
-  // socket.current = io(baseUrl);
-
   const onTabChange = (key: string) => {
     console.log("key:", key);
     setColKey(key);
   };
-
-  useMount(() => {});
 
   useEffect(() => {
     socket.current = io(baseUrl);
@@ -65,6 +65,17 @@ const Content = () => {
     // }
     // }
   }, []);
+
+  useMount(async () => {
+    const planetRes = await getPlanetList();
+    // const minerRes = await getMinerList();
+    // const asteroidsRes = await getAsteroidList();
+    setData({
+      [EMColKey.PLANETS]: planetRes,
+      // [EMColKey.MINERS]: minerRes,
+      // [EMColKey.ASTEROIDS]: asteroidsRes,
+    });
+  });
 
   // useEffect(() => {
   //   socket.on('tick', (res: any) => {
@@ -85,7 +96,7 @@ const Content = () => {
           setData({ ...data, [EMColKey.PLANETS]: planetRes });
           break;
         case EMColKey.MINERS:
-          const minerRes =  await getMinerList();
+          const minerRes = await getMinerList();
           setData({ ...data, [EMColKey.MINERS]: minerRes });
           break;
         case EMColKey.ASTEROIDS:
@@ -98,6 +109,10 @@ const Content = () => {
       refreshDeps: [colKey, socket],
     }
   );
+
+  // setTimeout(() => {
+  //   run();
+  // }, 60000);
 
   const onTableClick = (record: IPlanetData, id?: string) => {
     console.log("record", record);
@@ -128,9 +143,7 @@ const Content = () => {
       setModal(false);
     } else {
       message.error({
-        // content: res.message.split(".,").map((each: any, i: number) => <div key={i}>{each}</div>),
         content: res._message,
-        // duration: 0,
         style: {
           width: "max-content",
           margin: "100px auto",
@@ -150,7 +163,7 @@ const Content = () => {
     <div className="content">
       <div className="left">
         <div className="tabPane">
-          {customTabs.map((tab) => {
+          {getCustomTabs(colKey).map((tab) => {
             return (
               <div
                 key={tab.key}
@@ -180,7 +193,8 @@ const Content = () => {
       </div>
       <div className="right">
         <p>250 YEARS</p>
-        <img src={bg} className="img" />
+        {/* <img src={gridBg} className="img" /> */}
+        <Chart data={data} />
       </div>
       <ModalSection
         onVisible={modal}

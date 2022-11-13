@@ -170,6 +170,8 @@
     @include table;
     // padding: 10px;
     width: max-content;
+    overflow-y: scroll;
+    height: 360px;
   }
 
   .loading {

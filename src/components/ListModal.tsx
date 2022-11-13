@@ -34,8 +34,6 @@ const ListModal = ({
   onCancel: () => any;
   curPlanet: IPlanetData;
 }) => {
-  console.log("onvisible", onVisible);
-
   const { data, loading } = useRequest(
     async () => !!curPlanet?._id && (await getMinerByPlanet(curPlanet?._id)),
     {
@@ -52,6 +50,18 @@ const ListModal = ({
     e.stopPropagation();
     onCancel();
   };
+
+  const modifiedData =
+    !!data &&
+    data?.map((each: IMinerData) => {
+      const { x, y } = each;
+      return {
+        ...each,
+        position: `(${x ? Math.floor(x) : ''}, ${y ? Math.floor(y) : ''})`,
+      };
+    });
+
+  console.log("data: ", modifiedData);
 
   const customColumns = columns.miners
     .filter((c: string) => c !== "Planet")
@@ -90,7 +100,7 @@ const ListModal = ({
             <div className="loading">Loading...</div>
           ) : (
             <Table
-              dataSource={data}
+              dataSource={modifiedData}
               columns={customColumns}
               id="table"
               key="name"

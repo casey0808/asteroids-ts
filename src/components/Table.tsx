@@ -77,16 +77,23 @@ const TableSection = ({
 
   if (colKey === EMColKey.MINERS) {
     dataSource = dataSource?.map((each: IMinerData) => {
-      return { ...each, planet: getPlanetName(each?.planet, allData?.planets) };
+      const { x, y } = each;
+      return {
+        ...each,
+        planet: getPlanetName(each?.planet, allData?.planets),
+        position: `(${x ? Math.floor(x) : x}, ${y ? Math.floor(y) : y})`,
+      };
     });
   }
 
   if (colKey === EMColKey.ASTEROIDS) {
     dataSource = dataSource?.map((each: IAsteroidData) => {
       if (each?.currentMiner) {
+        const {x, y} = each.position;
         return {
           ...each,
           currentMiner: getCurrentMiner(each?.currentMiner, allData?.miners),
+          position: `(${x ? Math.floor(x) : x}, ${y ? Math.floor(y) : y})`
         };
       }
       return each;
@@ -101,7 +108,7 @@ const TableSection = ({
       id="table"
       bordered={false}
       rowKey="_id"
-      scroll={{ y: "70vh" }}
+      scroll={{ y: "72vh" }}
     />
   );
 };
