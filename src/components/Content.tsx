@@ -29,7 +29,6 @@ import {
 import { useMount, useRequest } from "ahooks";
 // import { socket } from '../socket';
 import { io } from "socket.io-client";
-import { planetData } from "../apis/mockData";
 import ListModal from "./ListModal";
 import Chart from "./Chart";
 import loaderIcon from "../assets/icons/loader.svg";
@@ -50,7 +49,7 @@ const Content = () => {
 
   useEffect(() => {
     socket.current = io(baseUrl);
-    if (socket.current.connected) {
+    // if (socket.current.connected) {
       try {
         socket.current.on("tick", (data: IColumnData) => {
           console.log("socket data", data);
@@ -65,7 +64,7 @@ const Content = () => {
       } catch (e) {
         console.log("error", e);
       }
-    }
+    // }
   }, []);
 
   useMount(async () => {
@@ -112,7 +111,7 @@ const Content = () => {
   };
 
   const handleSubmit = async (values: IFormData) => {
-    const planet = planetData.find((planet) => planet._id === values.planet);
+    const planet = data?.planets.find((planet: IPlanetData) => planet._id === values.planet);
     const res = await addMiners({
       ...values,
       x: planet?.position?.x,
@@ -183,7 +182,7 @@ const Content = () => {
         onVisible={modal}
         onSubmit={handleSubmit}
         onCancel={handleCancel}
-        planetData={planetData}
+        planetData={data?.planets}
         curPlanet={curPlanet}
         key="1"
       />

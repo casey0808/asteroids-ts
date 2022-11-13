@@ -13,7 +13,7 @@ export interface IPlanetData {
 export interface IMinerData {
   _id?: string;
   name: string;
-  planet: string;
+  planet: any;
   x: number | undefined;
   y: number | undefined;
   angle: number;

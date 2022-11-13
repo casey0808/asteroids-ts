@@ -76,10 +76,10 @@ const TableSection = ({
 
   if (colKey === EMColKey.MINERS) {
     dataSource = dataSource?.map((each: IMinerData) => {
-      const { x, y, status } = each;
+      const { x, y, status, planet } = each;
       return {
         ...each,
-        planet: getPlanetName(each?.planet, allData?.planets),
+        planet: planet.name ?? getPlanetName(each?.planet, allData?.planets),
         position: `(${x ? Math.floor(x) : x}, ${y ? Math.floor(y) : y})`,
         status: MinerStatus.find((s) => s.value === status)?.name,
       };

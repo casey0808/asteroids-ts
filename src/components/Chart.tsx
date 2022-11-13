@@ -56,8 +56,8 @@ const Chart = ({ data }: { data: any }) => {
         type: "image",
         style: {
           image: gridBg,
-          width: 1000,
-          height: 1000,
+          width: 800,
+          height: 800,
         },
       },
     ],
