@@ -5,11 +5,14 @@
     background: transparent;
   }
 
-  .planet {
+  .miners {
     color: white;
     cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
     & :hover {
       color: var(--main-btn-color);
     }
   }
+
 }

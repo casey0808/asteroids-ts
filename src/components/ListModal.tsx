@@ -36,12 +36,14 @@ const ListModal = ({
 }) => {
   console.log("onvisible", onVisible);
 
-  const { data } = useRequest(
-    async () => await getMinerByPlanet(curPlanet?._id),
+  const { data, loading } = useRequest(
+    async () => !!curPlanet?._id && (await getMinerByPlanet(curPlanet?._id)),
     {
       refreshDeps: [curPlanet],
     }
   );
+
+  console.log("data: ", data);
 
   const formRef = createRef<FormInstance>();
 
@@ -83,13 +85,19 @@ const ListModal = ({
     return (
       <div className="listTable">
         <p className="title">List of miners of {curPlanet.name}</p>
-        <Table
-          dataSource={data}
-          columns={customColumns}
-          id="table"
-          key="name"
-          pagination={false}
-        />
+        <>
+          {loading ? (
+            <div className="loading">Loading...</div>
+          ) : (
+            <Table
+              dataSource={data}
+              columns={customColumns}
+              id="table"
+              key="name"
+              pagination={false}
+            />
+          )}
+        </>
       </div>
     );
   };

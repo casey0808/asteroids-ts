@@ -24,6 +24,17 @@ export const getPlanetList = async () => {
   return res;
 };
 
+export const getAsteroidList = async () => {
+  const res = await (
+    await fetch(`${baseUrl}/asteroids`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    })
+  ).json();
+  console.log("res", res);
+  return res;
+};
+
 export const addMiners = async (params: IMinerData) => {
   try {
     const res = await (

@@ -12,7 +12,7 @@ export const columns: any = {
     "Position",
     "Status",
   ],
-  asteroids: ["Name", "Minerals", "Current miner", "Position"],
+  asteroids: ["Name", "Minerals", "currentMiner", "Position"],
   planets: ["Name", "Miners", "Minerals", "Action"],
 };
 

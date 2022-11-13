@@ -3,27 +3,37 @@ import { Table } from "antd";
 import addIcon from "../assets/icons/add.svg";
 import { columns } from "../constants/const";
 // import closeIcon from '../assets/icons/close.svg';
-import { IPlanetData } from "../constants/typing";
+import {
+  EMColKey,
+  IAsteroidData,
+  IMinerData,
+  IPlanetData,
+} from "../constants/typing";
 import "../styles/table.scss";
+import { getCurrentMiner, getPlanetName } from "../utils";
 
 const TableSection = ({
-  data,
+  dataSource,
   colKey,
   handleClick,
+  allData,
 }: {
-  data: IPlanetData[];
+  dataSource: any;
   colKey: string;
-  handleClick: (record: IPlanetData, id?: string) => void;
+  handleClick: (
+    record: IPlanetData | IMinerData | IAsteroidData,
+    id?: string
+  ) => void;
+  allData: any;
 }) => {
-  console.log("data:", data);
-  console.log(colKey);
+  console.log("colkey:", colKey);
 
   const customColumns = columns[colKey].map((col: any, index: number) => {
     if (col === "Action") {
       return {
         title: "",
         key: "action",
-        width: "10%",
+        width: "auto",
         render: (_: any, record: IPlanetData) => (
           <span
             className="action"
@@ -38,43 +48,60 @@ const TableSection = ({
         ),
       };
     }
-    if (col === "Name" && colKey === "planets") {
+    if (col === "Miners" && colKey === "planets") {
       return {
         title: col,
         dataIndex: col.toLowerCase(),
         key: col,
-        width: "5%",
+        width: "auto",
         align: "left",
         render: (_: any, record: IPlanetData) => (
           <span
             onClick={(e) => handleClick(record, record._id)}
-            className="planet"
+            className="miners"
           >
-            {record?.name}
+            {record?.minerals}
           </span>
         ),
       };
     }
     return {
       title: col,
-      dataIndex: col.toLowerCase(),
+      dataIndex: /[A-Z]/.test(col.charAt(0)) ? col.toLowerCase() : col,
       key: col,
-      width: "5%",
+      width: "max-content",
       align: "left",
     };
   });
   console.log(customColumns);
 
+  if (colKey === EMColKey.MINERS) {
+    dataSource = dataSource?.map((each: IMinerData) => {
+      return { ...each, planet: getPlanetName(each?.planet, allData?.planets) };
+    });
+  }
+
+  if (colKey === EMColKey.ASTEROIDS) {
+    dataSource = dataSource?.map((each: IAsteroidData) => {
+      if (each?.currentMiner) {
+        return {
+          ...each,
+          currentMiner: getCurrentMiner(each?.currentMiner, allData?.miners),
+        };
+      }
+      return each;
+    });
+  }
   return (
     <Table
-      dataSource={data}
+      dataSource={dataSource}
       columns={customColumns}
       className="table"
-      pagination={{ hideOnSinglePage: true }}
+      pagination={false}
       id="table"
       bordered={false}
       rowKey="_id"
-      // loading
+      scroll={{ y: "70vh" }}
     />
   );
 };

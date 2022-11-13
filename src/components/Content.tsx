@@ -10,14 +10,22 @@ import { Form, Input, Button } from "antd";
 import closeIcon from "../assets/icons/close.svg";
 import ModalSection from "./ModalSection";
 import {
+  EMColKey,
   EMMinerStatus,
+  IAsteroidData,
   IColumnData,
   IFormData,
   IMinerData,
   IPlanetData,
 } from "../constants/typing";
-import { addMiners, baseUrl, getPlanetList } from "../apis";
-import { useRequest } from "ahooks";
+import {
+  addMiners,
+  baseUrl,
+  getAsteroidList,
+  getMinerList,
+  getPlanetList,
+} from "../apis";
+import { useMount, useRequest } from "ahooks";
 // import { socket } from '../socket';
 import { io } from "socket.io-client";
 import { planetData } from "../apis/mockData";
@@ -27,36 +35,36 @@ const Content = () => {
   const [colKey, setColKey] = useState("planets");
   const [modal, setModal] = useState(false);
   const [listModal, setListModal] = useState(false);
-  // const [data, setData] = useState({}) as any;
+  const [data, setData] = useState({}) as any;
   const socket = useRef() as any;
-  const [curPlanet, setCurPlanet] = useState<IPlanetData>({} as IPlanetData)
+  const [curPlanet, setCurPlanet] = useState<IPlanetData>({} as IPlanetData);
+
+  // socket.current = io(baseUrl);
 
   const onTabChange = (key: string) => {
     console.log("key:", key);
     setColKey(key);
   };
 
-  // useEffect(() => {
-  //   socket.current = io(baseUrl);
-  //   if (socket.current.connected) {
-  //     try {
-  //       socket.current.on("tick", (data: IColumnData) => {
-  //         const { miners, planets, asteroids } = data;
-  //         setData({
-  //           miners,
-  //           planets,
-  //           asteroids,
-  //         });
-  //       });
-  //     } catch (e) {
-  //       console.log("error", e);
-  //     }
+  useMount(() => {});
 
-  //     setTimeout(() => {
-  //       socket.current.disconnect();
-  //     }, 10000);
-  //   }
-  // }, []);
+  useEffect(() => {
+    socket.current = io(baseUrl);
+    // if (socket.current.connected) {
+    // try {
+    //   socket.current.on("tick", (data: IColumnData) => {
+    //     const { miners, planets, asteroids } = data;
+    //     setData({
+    //       miners,
+    //       planets,
+    //       asteroids,
+    //     });
+    //   });
+    // } catch (e) {
+    //   console.log("error", e);
+    // }
+    // }
+  }, []);
 
   // useEffect(() => {
   //   socket.on('tick', (res: any) => {
@@ -69,22 +77,32 @@ const Content = () => {
   // }, []);
   // console.log("socket data: ", data);
 
-  // const [data, setData] = useState(planetData);
+  const { loading } = useRequest(
+    async () => {
+      switch (colKey) {
+        case EMColKey.PLANETS:
+          const planetRes = await getPlanetList();
+          setData({ ...data, [EMColKey.PLANETS]: planetRes });
+          break;
+        case EMColKey.MINERS:
+          const minerRes =  await getMinerList();
+          setData({ ...data, [EMColKey.MINERS]: minerRes });
+          break;
+        case EMColKey.ASTEROIDS:
+          const asteroidsRes = await getAsteroidList();
+          setData({ ...data, [EMColKey.ASTEROIDS]: asteroidsRes });
+          break;
+      }
+    },
+    {
+      refreshDeps: [colKey, socket],
+    }
+  );
 
-  // useEffect(() => {
-  //   const res = getPlanets();
-  //   console.log('get data', res);
-  // }, [colKey]);
-
-  const { data } = useRequest(async () => await getPlanetList(), {
-    refreshDeps: [colKey],
-  });
-
-  // console.log('data', data)
   const onTableClick = (record: IPlanetData, id?: string) => {
     console.log("record", record);
     console.log("table click");
-    console.log('id', id)
+    console.log("id", id);
     if (!!id) {
       setListModal(true);
     } else {
@@ -145,14 +163,20 @@ const Content = () => {
             );
           })}
         </div>
-        <Table
-          data={data || planetData}
-          // data={[]}
-          colKey={colKey}
-          handleClick={(record: IPlanetData, id?: string) => {
-            onTableClick(record, id);
-          }}
-        />
+        <div>
+          {loading ? (
+            <div className="loading">Loading...</div>
+          ) : (
+            <Table
+              dataSource={data?.[colKey]}
+              allData={data}
+              colKey={colKey}
+              handleClick={(record: any, id?: string) => {
+                onTableClick(record, id);
+              }}
+            />
+          )}
+        </div>
       </div>
       <div className="right">
         <p>250 YEARS</p>

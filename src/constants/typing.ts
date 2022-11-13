@@ -68,3 +68,13 @@ export const MinerStatus = [
   {value: EMMinerStatus.TRANSFERING, name: 'Transfering'},
   {value: EMMinerStatus.TRAVELING, name: 'Traveling'}
 ]
+
+export enum EMColKey {
+  MINERS = 'miners',
+  PLANETS = 'planets',
+  ASTEROIDS = 'asteroids'
+}
+
+// export const IRecord {
+//   record: IPlanetData[] | IMinerData | 
+// }
