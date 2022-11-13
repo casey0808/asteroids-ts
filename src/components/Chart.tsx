@@ -3,13 +3,16 @@ import ReactECharts from "echarts-for-react";
 import { IAsteroidData, IMinerData, IPlanetData } from "../constants/typing";
 import gridBg from "../assets/images/gridBg.svg";
 import planetIcon from "../assets/images/planet.svg";
+import planetIcon02 from "../assets/images/planet02.svg";
+import planetIcon03 from "../assets/images/planet03.svg";
 import minerIcon from "../assets/images/rocket.svg";
 import asteroidIcon from "../assets/images/asteroids.svg";
 
 const Chart = ({ data }: { data: any }) => {
-  const planet = data?.planets?.map((each: IPlanetData) => [
+  const planet = data?.planets?.map((each: IPlanetData, index: number) => [
     each.position.x,
     each.position.y,
+    index === 1 ? planetIcon02 : index === 2 ? planetIcon03 : planetIcon,
   ]);
   const miner = data?.miners?.map(
     (each: IMinerData) => !!each.x && !!each.y && [each.x, each.y, each.angle]
@@ -30,18 +33,20 @@ const Chart = ({ data }: { data: any }) => {
     series: [
       {
         symbolSize: 80,
-        symbol: `image://${planetIcon}`,
+        symbol: (value: Array<string>) => {
+          return `image://${value[2]}`;
+        },
         data: planet ? [...planet] : [],
         type: "scatter",
         symbolKeepAspect: true,
       },
       {
-        symbolSize: 20,
+        symbolSize: 25,
         symbol: `image://${minerIcon}`,
         data: miner ? [...miner] : [],
         type: "scatter",
         symbolKeepAspect: true,
-        symbolRotate: (value: any) => value[2]
+        symbolRotate: (value: Array<string>) => value[2],
       },
       {
         symbolSize: 30,
@@ -70,7 +75,7 @@ const Chart = ({ data }: { data: any }) => {
   return (
     <ReactECharts
       option={option}
-      style={{ height: "100%", width: '100%' }}
+      style={{ height: "100%", width: "100%" }}
       lazyUpdate={true}
     />
   );
