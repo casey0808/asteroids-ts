@@ -1,0 +1,34 @@
+{
+  "files": {
+    "main.css": "/asteroids-ts/static/css/main.a57b5101.css",
+    "main.js": "/asteroids-ts/static/js/main.00477726.js",
+    "static/js/787.cdf3f6fe.chunk.js": "/asteroids-ts/static/js/787.cdf3f6fe.chunk.js",
+    "static/media/gridBg.svg": "/asteroids-ts/static/media/gridBg.4afed896377888c51138fd031d1cf98b.svg",
+    "static/media/lato-v17-latin-regular.svg": "/asteroids-ts/static/media/lato-v17-latin-regular.ec5307044f561bd0e346.svg",
+    "static/media/lato-v17-latin-regular.ttf": "/asteroids-ts/static/media/lato-v17-latin-regular.f71f2288b959243b0ed1.ttf",
+    "static/media/poppins-v15-latin-regular.svg": "/asteroids-ts/static/media/poppins-v15-latin-regular.04277a799cb3f1b29dfa.svg",
+    "static/media/lato-v17-latin-regular.woff": "/asteroids-ts/static/media/lato-v17-latin-regular.319df0f5492062b546b0.woff",
+    "static/media/lato-v17-latin-regular.eot": "/asteroids-ts/static/media/lato-v17-latin-regular.6a8ad33ded37552b512b.eot",
+    "static/media/asteroids.svg": "/asteroids-ts/static/media/asteroids.21f936dd9a4040632d2962136207d20f.svg",
+    "static/media/planet.svg": "/asteroids-ts/static/media/planet.67e6361129ba39e2e2d1458e512caeab.svg",
+    "static/media/poppins-v15-latin-regular.ttf": "/asteroids-ts/static/media/poppins-v15-latin-regular.b739ab04747cf8e3325a.ttf",
+    "static/media/poppins-v15-latin-regular.woff": "/asteroids-ts/static/media/poppins-v15-latin-regular.c14093cee8c440c1884e.woff",
+    "static/media/poppins-v15-latin-regular.eot": "/asteroids-ts/static/media/poppins-v15-latin-regular.18418ab667b4f80aa3cf.eot",
+    "static/media/miner.svg": "/asteroids-ts/static/media/miner.b926a0fc0f7d0ae30b9692a294f1dc23.svg",
+    "static/media/rocket.svg": "/asteroids-ts/static/media/rocket.4c104406b4f96f285a8ac4186e3cde41.svg",
+    "static/media/rocketClicked.svg": "/asteroids-ts/static/media/rocketClicked.1067da27983a810a3f899adbfd007314.svg",
+    "static/media/add.svg": "/asteroids-ts/static/media/add.2a306fe1ade9972cf71605242d682d36.svg",
+    "static/media/planetClicked.svg": "/asteroids-ts/static/media/planetClicked.85f211d60aeddda416c016e28da3fee1.svg",
+    "static/media/asteroidClicked.svg": "/asteroids-ts/static/media/asteroidClicked.dacaa41add10424fcfad43b7189484db.svg",
+    "static/media/asteroid.svg": "/asteroids-ts/static/media/asteroid.0ca1fe107608fb26b7ba030932663a0b.svg",
+    "index.html": "/asteroids-ts/index.html",
+    "static/media/close.svg": "/asteroids-ts/static/media/close.4cb2b16c3af604a570a90f456e4b434c.svg",
+    "main.a57b5101.css.map": "/asteroids-ts/static/css/main.a57b5101.css.map",
+    "main.00477726.js.map": "/asteroids-ts/static/js/main.00477726.js.map",
+    "787.cdf3f6fe.chunk.js.map": "/asteroids-ts/static/js/787.cdf3f6fe.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a57b5101.css",
+    "static/js/main.00477726.js"
+  ]
+}
