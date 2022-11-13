@@ -4,24 +4,14 @@ This is an asteroid mining simulation, using react, ts and scss for the frontend
 ## Structure
 Main functional components are located in the `/components` folder, while scss code in `/styles` folder.
 
-### Content.tsx
-Contains code that builds the main page.
+| Component          | Description |
+| ------------------ | ----------- |
+| Content.tsx        | Contains code that builds the main page. <br />It is divided into two grids. <br />On the left, it's tabs and table, while the simulation displays in the right grid. |
+| Table.tsx          | Data is passed from `Content` based on which tab it is currently on. |
+| ModalSection.tsx   | Contains modal code with form. Will show up after clicking the `Create a miner` button on the `planet` tab. |
+| ListModal.tsx      | Will appear after clicking the data in `Miners` column with list of miners based on planet id. |
+| Chart.tsx          | Display planets, asteroids and miners on the canvas based on their current positions. <br />Built with `echarts-for-react`. |
 
-It is divided into two grids.
-On the left, it's tabs and table, while the simulation displays on the right grid.
-
-### Table.tsx
-Data is passed from `Content` based on which tab it is currently on.
-
-### ModalSection.tsx
-Contains modal code with form. Will show up after clicking the `Create a miner` button on the `planet` tab.
-
-### ListModal.tsx
-Will appear after clicking the data in `Miners` column with list of miners based on planet id.
-
-### Chart.tsx
-Display planets, asteroids and miners on the canvas based on their current positions.
-Built with `echarts-for-react`.
 
 ### Libraries
 - [ahooks](https://ahooks.js.org/)
