@@ -1,8 +1,6 @@
 # Asteroid Mining Simulation
 This is an asteroid mining simulation, using react and scss for the frontend, connecting to an express, node, websocket backend server (the backend server is provided by Slingshot at [asteroids-backend](https://git.mediasia-group.com/mediasia-interactive/asteroids-backend)).
 
-Check it out [here](https://cancui.work/asteroids-ts/)
-
 ## Structure
 Main functional components are located in the `/components` folder, while scss code in `/styles` folder.
 
@@ -25,6 +23,9 @@ Will appear after clicking the data in `Miners` column with list of miners based
 Display planets, asteroids and miners on the canvas based on their current positions.
 
 ## Deliverables
+
+**Check it out [here](https://cancui.work/asteroids-ts/)**
+
 - :white_check_mark: `Websocket`: 
 	- :white_check_mark: All planet, miners and asteroids status and information displayed on the frontend should be updated live via a websocket connection to the backend 
     - :white_check_mark: Each time a miner, planet, asteroid is created or modified on the backend, it should be updated live on the frontend 
