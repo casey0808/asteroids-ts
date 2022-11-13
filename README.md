@@ -24,7 +24,7 @@ Display planets, asteroids and miners on the canvas based on their current posit
 
 ## Deliverables
 
-**Check it out [here](https://cancui.work/asteroids-ts/){:target="_blank"}**
+**Check it out [here](https://cancui.work/asteroids-ts/)**
 
 - :white_check_mark: `Websocket`: 
 	- :white_check_mark: All planet, miners and asteroids status and information displayed on the frontend should be updated live via a websocket connection to the backend 
