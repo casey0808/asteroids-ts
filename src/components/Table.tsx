@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Table } from "antd";
-import addIcon from "../assets/icons/add.svg";
-import { columns } from "../constants/const";
+import React, { useState } from 'react';
+import { Table } from 'antd';
+import addIcon from '../assets/icons/add.svg';
+import { columns } from '../constants/const';
 // import closeIcon from '../assets/icons/close.svg';
 import {
   EMColKey,
@@ -9,9 +9,9 @@ import {
   IMinerData,
   IPlanetData,
   MinerStatus,
-} from "../constants/typing";
-import "../styles/table.scss";
-import { getCurrentMiner, getPlanetName } from "../utils";
+} from '../constants/typing';
+import '../styles/table.scss';
+import { getCurrentMiner, getPlanetName } from '../utils';
 
 const TableSection = ({
   dataSource,
@@ -27,17 +27,17 @@ const TableSection = ({
   ) => void;
   allData: any;
 }) => {
-  console.log("colkey:", colKey);
+  console.log('colkey:', colKey);
 
   const customColumns = columns[colKey].map((col: any, index: number) => {
-    if (col === "Action") {
+    if (col === 'Action') {
       return {
-        title: "",
-        key: "action",
-        width: "auto",
+        title: '',
+        key: 'action',
+        width: 150,
         render: (_: any, record: IPlanetData) => (
           <span
-            className="action"
+            className='action'
             onClick={(e) => {
               handleClick(record);
               // e.stopPropagation()
@@ -48,17 +48,17 @@ const TableSection = ({
         ),
       };
     }
-    if (col === "Miners" && colKey === "planets") {
+    if (col === 'Miners' && colKey === 'planets') {
       return {
         title: col,
         dataIndex: col.toLowerCase(),
         key: col,
-        width: "auto",
-        align: "left",
+        width: 100,
+        align: 'left',
         render: (_: any, record: IPlanetData) => (
           <span
             onClick={(e) => handleClick(record, record._id)}
-            className="miners"
+            className='miners'
           >
             {record?.minerals}
           </span>
@@ -69,8 +69,8 @@ const TableSection = ({
       title: col,
       dataIndex: /[A-Z]/.test(col.charAt(0)) ? col.toLowerCase() : col,
       key: col,
-      width: "max-content",
-      align: "left",
+      width: 100,
+      align: 'left',
     };
   });
 
@@ -103,12 +103,12 @@ const TableSection = ({
     <Table
       dataSource={dataSource}
       columns={customColumns}
-      className="table"
+      className='table'
       pagination={false}
-      id="table"
+      id='table'
       bordered={false}
-      rowKey="_id"
-      scroll={{ y: "65vh" }}
+      rowKey='_id'
+      scroll={{ y: '65vh' }}
     />
   );
 };
