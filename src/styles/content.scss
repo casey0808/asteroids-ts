@@ -106,6 +106,12 @@
       .ant-table-container {
         width: 50vw;
       }
+      ::-webkit-scrollbar {
+        width: 0 !important;
+      }
+      .ant-table-tbody {
+        overflow: -moz-scrollbars-none;
+      }
     }
   }
 
