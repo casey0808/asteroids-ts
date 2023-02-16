@@ -7,7 +7,7 @@ function App() {
   return (
     <div className='main'>
       <div className='header'>
-        <img src={MinerIcon} />
+        <img src={MinerIcon} alt="icon" />
         <p>BACKEND MINER</p>
       </div>
       <Content />

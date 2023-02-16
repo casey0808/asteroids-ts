@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ReactECharts from "echarts-for-react";
 import { IAsteroidData, IMinerData, IPlanetData } from "../constants/typing";
 import gridBg from "../assets/images/gridBg.svg";

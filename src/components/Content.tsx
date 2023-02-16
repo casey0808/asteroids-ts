@@ -1,22 +1,15 @@
 import "../styles/content.scss";
 // import { AndroidOutlined, AppleOutlined } from '@ant-design/icons';
-import { message, Modal, Tabs } from "antd";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { message, Modal } from "antd";
+import React, { useEffect, useRef, useState } from "react";
 
 import Table from "./Table";
-import { columns, customTabs } from "../constants/const";
-import bg from "../assets/images/bg.png";
-import gridBg from "../assets/images/gridBg.svg";
-import { Form, Input, Button } from "antd";
-import closeIcon from "../assets/icons/close.svg";
 import ModalSection from "./ModalSection";
 import {
   EMColKey,
   EMMinerStatus,
-  IAsteroidData,
   IColumnData,
   IFormData,
-  IMinerData,
   IPlanetData,
 } from "../constants/typing";
 import {
@@ -27,11 +20,9 @@ import {
   getPlanetList,
 } from "../apis";
 import { useMount, useRequest } from "ahooks";
-// import { socket } from '../socket';
 import { io } from "socket.io-client";
 import ListModal from "./ListModal";
 import Chart from "./Chart";
-import loaderIcon from "../assets/icons/loader.svg";
 import { getCustomTabs } from "../utils";
 
 const Content = () => {
@@ -175,7 +166,6 @@ const Content = () => {
       </div>
       <div className="right">
         <p>250 YEARS</p>
-        {/* <img src={gridBg} className="img" /> */}
         <Chart data={data} />
       </div>
       <ModalSection

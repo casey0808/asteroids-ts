@@ -1,19 +1,9 @@
-import { createRef, useState } from "react";
 import {
   Modal,
-  Form,
-  Input,
-  Button,
-  ConfigProvider,
-  Select,
-  InputNumber,
   Table,
 } from "antd";
 import closeIcon from "../assets/icons/close.svg";
-import { FormInstance } from "antd/es/form/Form";
 import {
-  EMMinerStatus,
-  IFormData,
   IMinerData,
   IPlanetData,
   MinerStatus,
@@ -21,7 +11,7 @@ import {
 import React from "react";
 import "../styles/modal.scss";
 import { columns } from "../constants/const";
-import { useMount, useRequest } from "ahooks";
+import { useRequest } from "ahooks";
 import { getMinerByPlanet } from "../apis";
 
 const ListModal = ({
@@ -117,7 +107,7 @@ const ListModal = ({
       className="modal"
       // getContainer={() => document.querySelector('.main') as HTMLElement}
     >
-      <img src={closeIcon} className="closeIcon" onClick={handleCancel} />
+      <img src={closeIcon} className="closeIcon" onClick={handleCancel} alt="closeIcon" />
       {customTable()}
     </Modal>
   );

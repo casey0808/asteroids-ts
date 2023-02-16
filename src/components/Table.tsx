@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Table } from 'antd';
 import addIcon from '../assets/icons/add.svg';
 import { columns } from '../constants/const';
@@ -43,7 +43,7 @@ const TableSection = ({
               // e.stopPropagation()
             }}
           >
-            <img src={addIcon} /> Create a miner
+            <img src={addIcon} alt="add" /> Create a miner
           </span>
         ),
       };

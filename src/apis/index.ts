@@ -1,4 +1,4 @@
-import { IFormData, IMinerData } from "../constants/typing";
+import { IMinerData } from "../constants/typing";
 
 export const baseUrl = "https://asteroids.dev.mediasia.cn";
 
