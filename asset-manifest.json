@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/asteroids-ts/static/css/main.f40015a2.css",
-    "main.js": "/asteroids-ts/static/js/main.de4489a7.js",
+    "main.css": "/asteroids-ts/static/css/main.4a4f540f.css",
+    "main.js": "/asteroids-ts/static/js/main.c56796ca.js",
     "static/js/787.cdf3f6fe.chunk.js": "/asteroids-ts/static/js/787.cdf3f6fe.chunk.js",
     "static/media/gridBg.svg": "/asteroids-ts/static/media/gridBg.4afed896377888c51138fd031d1cf98b.svg",
     "static/media/lato-v17-latin-regular.svg": "/asteroids-ts/static/media/lato-v17-latin-regular.ec5307044f561bd0e346.svg",
@@ -25,12 +25,12 @@
     "static/media/asteroid.svg": "/asteroids-ts/static/media/asteroid.0ca1fe107608fb26b7ba030932663a0b.svg",
     "index.html": "/asteroids-ts/index.html",
     "static/media/close.svg": "/asteroids-ts/static/media/close.4cb2b16c3af604a570a90f456e4b434c.svg",
-    "main.f40015a2.css.map": "/asteroids-ts/static/css/main.f40015a2.css.map",
-    "main.de4489a7.js.map": "/asteroids-ts/static/js/main.de4489a7.js.map",
+    "main.4a4f540f.css.map": "/asteroids-ts/static/css/main.4a4f540f.css.map",
+    "main.c56796ca.js.map": "/asteroids-ts/static/js/main.c56796ca.js.map",
     "787.cdf3f6fe.chunk.js.map": "/asteroids-ts/static/js/787.cdf3f6fe.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f40015a2.css",
-    "static/js/main.de4489a7.js"
+    "static/css/main.4a4f540f.css",
+    "static/js/main.c56796ca.js"
   ]
 }
