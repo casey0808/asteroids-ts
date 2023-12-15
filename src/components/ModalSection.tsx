@@ -130,7 +130,7 @@ const ModalSection = ({
       footer={false}
       closable={false}
       width={447}
-      // centered
+      centered
       destroyOnClose={true}
       className="modal"
       // getContainer={() => document.querySelector('.main') as HTMLElement}

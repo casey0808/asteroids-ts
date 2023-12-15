@@ -1,18 +1,11 @@
 .modal .ant-modal-content {
   font-family: "Lato";
-  // height: 427px;
   height: 477px;
-  // width: 447px;
-  width: 'max-content';
+  width: max-content;
   border-radius: 12px;
-  position: absolute;
   background-color: var(--main-modal-color);
   color: white;
   text-align: left;
-  vertical-align: middle;
-  margin-top: 150px;
-  // padding-left: 24px;
-  // padding-right: 24px;
 
   .closeIcon {
     position: absolute;
@@ -137,7 +130,7 @@
   }
   .desc {
     position: absolute;
-    color: #00CF67;
+    color: #00cf67;
     margin-top: 75px;
     // bottom: 92px;
     width: 399px;
@@ -149,7 +142,7 @@
   }
 }
 
-@import './content.scss';
+@import "./content.scss";
 
 .listTable {
   font-family: "Lato";

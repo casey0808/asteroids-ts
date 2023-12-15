@@ -102,7 +102,7 @@ const ListModal = ({
       footer={false}
       closable={false}
       // width={600}
-      // centered
+      centered
       destroyOnClose={true}
       className="modal"
       // getContainer={() => document.querySelector('.main') as HTMLElement}
