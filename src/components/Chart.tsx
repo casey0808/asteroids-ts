@@ -15,7 +15,7 @@ const Chart = ({ data }: { data: any }) => {
     index === 1 ? planetIcon02 : index === 2 ? planetIcon03 : planetIcon,
   ]);
   const miner = data?.miners?.map(
-    (each: IMinerData) => !!each.x && !!each.y && [each.x, each.y, each.angle]
+    (each: IMinerData) => !!each.x && !!each.y && [each.x, each.y, each.angle - 90]
   );
 
   const asteroid = data?.asteroids?.map((each: IAsteroidData) => [
