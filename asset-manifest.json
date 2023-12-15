@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/asteroids-ts/static/css/main.102afaa7.css",
+    "main.css": "/asteroids-ts/static/css/main.90d83458.css",
     "main.js": "/asteroids-ts/static/js/main.6692e97a.js",
     "static/js/787.8cdce594.chunk.js": "/asteroids-ts/static/js/787.8cdce594.chunk.js",
     "static/media/gridBg.svg": "/asteroids-ts/static/media/gridBg.4afed896377888c51138fd031d1cf98b.svg",
@@ -25,12 +25,12 @@
     "static/media/asteroid.svg": "/asteroids-ts/static/media/asteroid.0ca1fe107608fb26b7ba030932663a0b.svg",
     "index.html": "/asteroids-ts/index.html",
     "static/media/close.svg": "/asteroids-ts/static/media/close.4cb2b16c3af604a570a90f456e4b434c.svg",
-    "main.102afaa7.css.map": "/asteroids-ts/static/css/main.102afaa7.css.map",
+    "main.90d83458.css.map": "/asteroids-ts/static/css/main.90d83458.css.map",
     "main.6692e97a.js.map": "/asteroids-ts/static/js/main.6692e97a.js.map",
     "787.8cdce594.chunk.js.map": "/asteroids-ts/static/js/787.8cdce594.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.102afaa7.css",
+    "static/css/main.90d83458.css",
     "static/js/main.6692e97a.js"
   ]
 }
